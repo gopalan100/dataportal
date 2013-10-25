@@ -365,6 +365,48 @@ input[type="radio"]{
 	float: left;
 }
 
+.rightTbleView .btn{
+	margin-left: 10px;	
+}
+
+.rightTbleView .btn{
+	margin-left: 10px;	
+}
+
+.rightTbleView .btn:nth-child(1){
+	margin-left: 0px;
+}
+
+#sideDiv .thumbnail{
+	min-height: 200px;
+    min-width: 60px;	
+}
+
+
+#sideDiv .thumbnail .btn{
+ 	transform: rotate(270deg);	
+ 	-webkit-transform: rotate(270deg);	
+	-ms-transform: rotate(270deg);
+}
+
+#sideDiv .thumbnail .btn:nth-child(1){
+	transform-origin: 32px 20px 0;	
+	-webkit-transform-origin: 32px 20px 0;	
+	-ms-transform-orgin: 32px 20px 0 !mportant;	
+}
+
+#sideDiv .thumbnail .btn:nth-child(2){
+	transform-origin: 50px 38px 0;
+	-webkit-transform-origin: 50px 38px 0;	
+	-ms-transform-orgin: 50px 38px 0;	
+}
+
+#sideDiv .thumbnail .btn:nth-child(3){
+	transform-origin: 68px 56px 0;	
+	-webkit-transform-origin: 68px 56px 0;	
+	-ms-transform-orgin:68px 56px 0;	
+}
+
 .emptyDiv{
 	float: left;
 	min-width: 92px;
@@ -440,6 +482,7 @@ margin-top: 10px;
 
 .widAdj1{
 	width: 90%;
+	min-height: 50px;
 }
 
 .widAdj2{
@@ -458,17 +501,6 @@ margin-top: 10px;
 .widAdj1 .caption{
 	min-width: 60px;
 }
-
-#sideDiv .thumbnail{
-	min-height: 200px;
-    min-width: 60px;	
-}
-
-
-#sideDiv .thumbnail .btn{
- transform: rotate(270deg);	
-}
-
 
 
 /*Infiniti Page*/

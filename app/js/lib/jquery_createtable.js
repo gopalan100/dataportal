@@ -14,13 +14,14 @@
  	
  	$.fn.createGTable = function(options){
  		
- 		$("#tbleStru").html("");
+ 		$(".tbleStru").html("");
  		
 	 	var defaults = { 
-	 	CountriesArr: ["INDIA","ENGLAND"],
+	 	CountriesArr: ["India","England"],
 	 	YearsArr: ["2011","2012"],
 	 	SectorsArr: ["Agriculture","Education"],
-	 	onStart: function(){alert("")},
+	 	datavalueNos: 8,
+	 	datavalueArr:[20, 21, 22, 23, 24, 25, 26, 27],
 	 	addClasses: "studDetails datstble",
 	 	initPos: 15	
 	 	};
@@ -33,8 +34,16 @@
 	 	Sectors = settings.SectorsArr;
  		Countries = settings.CountriesArr;
  		Years = settings.YearsArr;
+ 		dataValues = settings.datavalueArr;
+ 		
+ 		var g = 0;
+		var g1 = 0;
+		var g2 = 0;
+		var dataSeries = 0;
+		content = "<table class='tbleBase' cellspacing='0'>"; 
 
-	 		 	
+		
+		/*	
 	 	if(settings.yrPlace==1){
 	 		
 	 		if(settings.cntrPlace == 1){
@@ -47,7 +56,8 @@
 	 				 			
 	 		}
 	 		
-	 	}
+	 	}*/
+
 		
 		
 		pos = settings.initPos.toString();
@@ -184,10 +194,6 @@
 		
 		function showGTable(){
 
-			var g = 0;
-			var g1 = 0;
-			var g2 = 0;
-			content = "<table id='tbleBase' cellspacing='0'>"; 
 			for(k=0;k<rowNumss;k++){
 					
 					
@@ -218,8 +224,10 @@
 							g2=0;	
 							}
 						}						
-						else{
-						content += "<td>100</td>";
+						else{				
+
+						content += "<td>25</td>";
+						dataSeries++;
 						}		
 		
 					}						
@@ -232,9 +240,6 @@
 		
 		function showGTable2(){
 			
-			var g = 0;
-	 		var g1 = 0;
-			content = "<table id='tbleBase' cellspacing='0'>"; 
 	 		for(k=0;k<colNumss;k++){
 	 			if(k<2){
 	 				content += "<td><b></b></td>";
@@ -273,10 +278,6 @@
 		
 		function showGTable3(){
 			
-			var g = 0;
-			var g1 = 0;
-			var g2 = 0;
-			content = "<table id='tbleBase' cellspacing='0'>"; 
 	  		for(i=0;i<rowNoss;i++){
 	 		content += "<tr>";
 	 				for(j=0;j<4;j++){
@@ -314,10 +315,6 @@
 		
 		function showGTable4(){
 			 
-	  		var g = 0;
-	  		var g1 = 0;
-	  		var g2 = 0;
-	  		content = "<table id='tbleBase' cellspacing='0'>";
 	  		for(k=0;k<4;k++){
 	 			
 	 			content += "<tr>";
@@ -356,9 +353,9 @@
 		}
 		
 
-		$("#tbleStru").append(content);
+		$(".tbleStru").append(content);
 
-		$("#tbleBase").addClass(settings.addClasses);
+		$(".tbleBase").addClass(settings.addClasses);
 		
 	 	return this.each(function() {
 	        //$(this).css("color", settings.textColor);

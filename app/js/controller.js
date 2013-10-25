@@ -317,20 +317,13 @@ function addControls() {
 }
 
 function rearrangeData(){
-    	
+    	if($.browser.msie){
     	setTimeout(function(){
-        
-        if($("#sideDiv .thumbnail .btn").length == 2){
-        $(".btn:first-child").animate({"transform-origin": "30px 17px 0"})
-		$(".btn:last-child").animate({"transform-origin": "45px 32px 0"})
-		}else if($("#sideDiv .thumbnail .btn").length == "3"){
-		$(".btn:eq(1)").animate({"transform-origin": "45px 32px 0"})
-		$(".btn:last-child").animate({"transform-origin": "63px 50px 0"})
-		}else{
-		$(".btn:first-child").animate({"transform-origin": "30px 17px 0"})	
-		}
-      
+    	$("#sideDiv .btn:eq(0)").css("top", "10px");
+    	$("#sideDiv .btn:eq(1)").css("top", "45px");
+        $("#sideDiv .btn:eq(2)").css("top", "85px");  
         }, 100)
+       }
     	
 }
 
