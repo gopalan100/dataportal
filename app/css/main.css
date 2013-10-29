@@ -529,7 +529,7 @@ margin-top: 10px;
 
 /* Screens ----------- */
 
-@media only screen and (min-width : 320PX) and (max-width : 641PX){
+@media only screen and (max-width : 641PX){
 
 		
 .topLogo {
@@ -550,6 +550,10 @@ margin-top: 10px;
 
 .topMenu ul li{
     margin: 0;
+}
+
+.topMenuLink li a{
+	padding: 4px 10px;
 }
 
 #leftColum{
@@ -619,6 +623,10 @@ margin-top: 10px;
 	width: 96%;
 }
 
+.inificontainer{
+	width: 85%;
+}
+
 }
 
 
@@ -644,7 +652,7 @@ margin-top: 10px;
 .clum22{
 	width: 32%;
 }
-	
+
 }
 
 
@@ -666,9 +674,28 @@ margin-top: 10px;
 
 }
 
+@media only screen and (max-width : 250PX) {
+#logoMart{
+    display: inline-block;
+}
 
+.topMenu ul li{
+    width: 98%;
+    margin: 2px;
+}
 
+.dataDetails{
+    width: 55%;
+}
 
+.footerSpan{
+    float: none;
+}
+
+.footer{
+    margin: 30px 2px 40px
+}
+}
 /* Some Table design for .studDetails */
 	
 
