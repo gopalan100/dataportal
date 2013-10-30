@@ -41,25 +41,7 @@
 		var g2 = 0;
 		var dataSeries = 0;
 		content = "<table class='tbleBase' cellspacing='0'>"; 
-
-		
-		/*	
-	 	if(settings.yrPlace==1){
-	 		
-	 		if(settings.cntrPlace == 1){
-	 			cntnearColrowspan =  yrsNos;
-	 		}
-	 		
-	 		if(settings.agriPlace == 1){
-	 			
-	 			yrnearColrowspan =  cntnearColrowspan*yrsNos;
-	 				 			
-	 		}
-	 		
-	 	}*/
-
-		
-		
+	
 		pos = settings.initPos.toString();
 
 		switch(pos)
