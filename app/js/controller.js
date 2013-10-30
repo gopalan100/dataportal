@@ -259,8 +259,13 @@ function addControls() {
 	});
 	
    	 var hghtAdju = setTimeout(function () {
+   	 	
+   	 	if ($(document).width() > 640) {
         $(".mainContent .clumContnt").innerHeight(t);
-        
+        }else{
+        $("#rightColum").insertAfter(".mainContent");
+        }
+       
         $(".tbleStru").createGTable({
             initPos: 12
         });
@@ -407,16 +412,4 @@ function chartOpens(typeval, mode, setHeight) {
 
     }
 
-}
-
-window.onload = function () {
-    setTimeout(function () {
-        isIphone();
-    }, 1000);
-};
-
-function isIphone() {
-    if ($(document).width() < 481) {
-        $("#rightColum").insertAfter(".mainContent");
-    }
 }
