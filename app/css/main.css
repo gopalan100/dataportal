@@ -85,7 +85,7 @@ input[type="radio"]{
 
 .footerSpan{
 	float: right;
-	margin: 5px 40px;	
+	margin: 5px 3%;	
 }
 
 /*Index Page Ends*/
@@ -253,7 +253,7 @@ input[type="radio"]{
 }
 
 .rghtDataColmn{
-	width: 46%;
+	width: 45%;
 }
 
 .tabsClass{
@@ -595,10 +595,6 @@ margin-top: 10px;
     text-align: center;
 }
 
-.footer {
-	margin: 30px 50px 40px;
-}
-
 .leftsideinfi, .rghtsideinfi{
 	float: none;
 	width: 100%;
@@ -638,6 +634,29 @@ margin-top: 10px;
 	margin-right: 1%;	
 }
 
+}
+
+@media only screen and (min-width : 630PX) and (max-width : 641PX){
+	.leftDataColmn{
+		border-right: 1px dotted #003366;
+    	width: 10%;
+    	float: left;
+	}
+	.midDataColmn{
+		width: 70%;
+	}
+	.dataDetails{
+		width: 75%;
+	}
+}
+
+@media only screen and (min-width : 1125PX) and (max-width : 1140PX){
+	.midDataColmn{
+		width: 40%;
+	}
+	.rghtDataColmn{
+		width: 40%;
+	}
 }
 
 
@@ -692,9 +711,6 @@ margin-top: 10px;
     float: none;
 }
 
-.footer{
-    margin: 30px 2px 40px
-}
 }
 /* Some Table design for .studDetails */
 	
