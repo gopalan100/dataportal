@@ -3,19 +3,19 @@ config(['$routeProvider', '$locationProvider',
     function ($routeProvider, $locationProvider) {
         $routeProvider.
         when('/', {
-            templateUrl: '/Ashoka_Dev1/app/partials/homepage.html',
+            templateUrl: 'partials/homepage.html',
             controller: 'ContactController'
         }).
         when('/about', {
-            templateUrl: '/Ashoka_Dev1/app/partials/aboutpage.html',
+            templateUrl: 'partials/aboutpage.html',
             controller: 'ContactController'
         }).
         when('/data', {
-            templateUrl: '/Ashoka_Dev1/app/partials/datapage.html',
+            templateUrl: 'partials/datapage.html',
             controller: 'ContactController'
         }).
         when('/inifini', {
-            templateUrl: '/Ashoka_Dev1/app/partials/infinitipage.html',
+            templateUrl: 'partials/infinitipage.html',
             controller: 'ContactController'
         });
         

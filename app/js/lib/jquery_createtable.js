@@ -41,7 +41,7 @@
 		var g2 = 0;
 		var dataSeries = 0;
 		content = "<table class='tbleBase' cellspacing='0'>"; 
-	
+		
 		pos = settings.initPos.toString();
 
 		switch(pos)
@@ -208,7 +208,9 @@
 						}						
 						else{				
 
-						content += "<td>25</td>";
+							content += "<td>"+dataValues[dataSeries]+"</td>";
+
+						//content += "<td>25</td>";
 						dataSeries++;
 						}		
 		
@@ -250,7 +252,9 @@
 		 				}
 		 				
 		 				}else{
- 					content += "<td>10</td>";
+ 					//content += "<td>10</td>";
+ 					content += "<td>"+dataValues[dataSeries]+"</td>";
+ 					dataSeries++;
  					}
 	 			}
 	 		content += "</tr>";	 		
@@ -285,7 +289,9 @@
 						g2=0;	
 						}
 		 				}else{
- 					content += "<td>110</td>";
+ 					//content += "<td>110</td>";
+ 					content += "<td>"+dataValues[dataSeries]+"</td>";
+ 					dataSeries++;
  					}
 	 			}
 	 		content += "</tr>";
@@ -324,7 +330,9 @@
 		 					g2=0;	
 		 					}
 	 					}else{
-	 						content += "<td>10</td>";
+	 						//content += "<td>10</td>";
+	 						content += "<td>"+dataValues[dataSeries]+"</td>";
+ 							dataSeries++;
 	 					}
 	 				}
 	 			content += "</tr>";	

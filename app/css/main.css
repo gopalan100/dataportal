@@ -85,7 +85,7 @@ input[type="radio"]{
 
 .footerSpan{
 	float: right;
-	margin: 5px 3%;	
+	margin: 5px 40px;	
 }
 
 /*Index Page Ends*/
@@ -253,7 +253,7 @@ input[type="radio"]{
 }
 
 .rghtDataColmn{
-	width: 45%;
+	width: 46%;
 }
 
 .tabsClass{
@@ -571,28 +571,25 @@ margin-top: 10px;
 
 .clum1, .clum2, .clum3, .clum21, .clum22{
     float: none;
-    width: 94%;
+    width: 96%;
     margin: 10px;
     overflow: hidden;
 }
 
 .mainContentLogos{
     float: none;
-    margin: 0px;
+    margin: 0px 10px;
     width: 100% ;
 }
 
 #rightColum{
     float:none;
     width: 98% ;
-    margin: 0 3px;
+    margin: 0 10px;
 }
 
-.topChart, .botChart{
-    margin: 0px;
-    width: 94%;
-    margin: 0px 3px;
-    text-align: center;
+.footer {
+	/*margin: 30px 50px 40px;*/
 }
 
 .leftsideinfi, .rghtsideinfi{
@@ -634,29 +631,6 @@ margin-top: 10px;
 	margin-right: 1%;	
 }
 
-}
-
-@media only screen and (min-width : 630PX) and (max-width : 641PX){
-	.leftDataColmn{
-		border-right: 1px dotted #003366;
-    	width: 10%;
-    	float: left;
-	}
-	.midDataColmn{
-		width: 70%;
-	}
-	.dataDetails{
-		width: 75%;
-	}
-}
-
-@media only screen and (min-width : 1125PX) and (max-width : 1140PX){
-	.midDataColmn{
-		width: 40%;
-	}
-	.rghtDataColmn{
-		width: 40%;
-	}
 }
 
 
@@ -711,6 +685,9 @@ margin-top: 10px;
     float: none;
 }
 
+.footer{
+    margin: 30px 2px 40px
+}
 }
 /* Some Table design for .studDetails */
 	
