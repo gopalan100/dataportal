@@ -40,7 +40,7 @@
 		var g1 = 0;
 		var g2 = 0;
 		var dataSeries = 0;
-		content = "<table class='tbleBase' cellspacing='0'>"; 
+		content = "<table id='dataTable' class='tbleBase' cellspacing='0'>"; 
 		
 		pos = settings.initPos.toString();
 
