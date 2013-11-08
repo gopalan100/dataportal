@@ -1,435 +1,8 @@
-
 function ContactController($scope, $http, $modal, dataSetData, $location) {
-	    //$scope.datasets = dataSetData.query();
-	$scope.acc2open = true;
-	$scope.$on('$viewContentLoaded', addControls());
-    $scope.activePath = null;
-  	$scope.$on('$routeChangeSuccess', function(){
-    	$scope.$parent.activePath ="#"+ $location.path();
-  	});
-  	
-	var labelsArr = '{labels : [';
-	var datasetsArr = 'datasets : [{"data":[';
-	var yearArr = new Array();
-	var countryArr = new Array();
-	var Series=" [";
-	var Category=" [";
-	dataSetData.query(function(data)
-	{
-		//Category
-		for(rowIndex in data)
-		{
-			if(!isPresent(data[rowIndex].year,yearArr)){
-				yearArr.push(data[rowIndex].year);	
-				Category=Category+JSON.stringify(data[rowIndex].year)+",";	
-			}
-			if(!isPresent(data[rowIndex].Country,countryArr)){
-				countryArr.push(data[rowIndex].Country);	
-			}
-		}
-		Category=Category.substring(0,Category.length-1);
-		Category=Category+"]";
-		Category=Category.replace(/"/g,"");
-		//Series
-		for(countryIndex in countryArr)
-			{
-				Series=Series+"{\"name\":"+JSON.stringify(countryArr[countryIndex])+", \"data\": [";
-				var data1="";
-				for(rowIndex in data)
-				{
-					if(JSON.stringify(data[rowIndex].Country)==JSON.stringify(countryArr[countryIndex])){
-						data1=data1+JSON.stringify(data[rowIndex].population)+",";
-					}
-					else{
-						rowIndex=rowIndex+yearArr.length;
-					}
-					data1=data1.replace(/"/g,"");
-				}
-			Series=Series+data1;
-			Series=Series.substring(0,Series.length-1);	
-			//console.log("series is :"+Series);
-			Series=Series+"]},";
-			}	
-			Series=Series.substring(0,Series.length-1);	
-		Series=Series+"]";
-		//Series=Series.replace(/"/g,"");
-		console.log("Categories are" +Category);
-		var options={
-		   chart: {type: 'line'},
-           title: {text: 'Worldwide Population Growth'},
-           subtitle: {text: 'Source: Ashoka.org'},
-           xAxis: {
-           categories:JSON.parse(Category),
-           tickmarkPlacement: 'on',
-           title: {enabled: false}},
-           yAxis: {title: {text: 'Billions'},
-           labels: {
-           	formatter: function() {
-           		//console.log(this.value);
-           		return this.value / 1000;}
-           	}
-           	},
-           tooltip: {shared: true,valueSuffix: 'millions'},
-           plotOptions: {
-           area: {
-           	stacking: 'normal',
-           	lineColor: '#666666',
-           	lineWidth: 1,
-           	marker: {
-           		lineWidth: 1,
-           		lineColor: '#666666'
-           		}
-           	 }
-           },
-           series: JSON.parse(Series)
-           };
-           var optionsBar={
-		   chart: {type: 'bar'},
-           title: {text: 'Worldwide Population Growth'},
-           subtitle: {text: 'Source: Ashoka.org'},
-           xAxis: {
-           categories:JSON.parse(Category),
-           tickmarkPlacement: 'on',
-           title: {enabled: false}},
-           yAxis: {title: {text: 'Billions'},
-           labels: {
-           	formatter: function() {
-           		//console.log(this.value);
-           		return this.value / 1000;}
-           	}
-           	},
-           tooltip: {shared: true,valueSuffix: 'millions'},
-           plotOptions: {
-           series: {
-                    stacking: 'normal'
-                }
-           },
-           series: JSON.parse(Series)
-           };
-        //HighCharts
-		function createChart() {
-			console.log("options.series" + options.series);
-			console.log("series" + Series);
-			 jQuery('#TC1').highcharts(options);
-			 jQuery('#TC2').highcharts(optionsBar);
-	 };
-			createChart();
-});	
-};
 
-function aboutController($scope, $http, $modal, $location, dataSetData) {
-	$scope.acc2open = true;
-	$scope.$on('$viewContentLoaded', addControls());
-    $scope.activePath = null;
-  	$scope.$on('$routeChangeSuccess', function(){
-    	$scope.$parent.activePath ="#"+ $location.path();
-  	});
-  	
-	var labelsArr = '{labels : [';
-	var datasetsArr = 'datasets : [{"data":[';
-	var yearArr = new Array();
-	var countryArr = new Array();
-	var Series=" [";
-	var Category=" [";
-	dataSetData.query(function(data)
-	{
-		//Category
-		for(rowIndex in data)
-		{
-			if(!isPresent(data[rowIndex].year,yearArr)){
-				yearArr.push(data[rowIndex].year);	
-				Category=Category+JSON.stringify(data[rowIndex].year)+",";	
-			}
-			if(!isPresent(data[rowIndex].Country,countryArr)){
-				countryArr.push(data[rowIndex].Country);	
-			}
-		}
-		Category=Category.substring(0,Category.length-1);
-		Category=Category+"]";
-		Category=Category.replace(/"/g,"");
-		//Series
-		for(countryIndex in countryArr)
-			{
-				Series=Series+"{\"name\":"+JSON.stringify(countryArr[countryIndex])+", \"data\": [";
-				var data1="";
-				for(rowIndex in data)
-				{
-					if(JSON.stringify(data[rowIndex].Country)==JSON.stringify(countryArr[countryIndex])){
-						data1=data1+JSON.stringify(data[rowIndex].population)+",";
-					}
-					else{
-						rowIndex=rowIndex+yearArr.length;
-					}
-					data1=data1.replace(/"/g,"");
-				}
-			Series=Series+data1;
-			Series=Series.substring(0,Series.length-1);	
-			//console.log("series is :"+Series);
-			Series=Series+"]},";
-			}	
-			Series=Series.substring(0,Series.length-1);	
-		Series=Series+"]";
-		//Series=Series.replace(/"/g,"");
-		//console.log("Categories are" +Category);
-	var options={
-		   chart: {type: 'column'},
-           title: {text: 'Worldwide Population Growth'},
-           subtitle: {text: 'Source: Ashoka.org'},
-           xAxis: {
-           categories:JSON.parse(Category),
-           tickmarkPlacement: 'on',
-           title: {enabled: false}},
-           yAxis: {title: {text: 'Billions'},
-           labels: {
-           	formatter: function() {
-           		//console.log(this.value);
-           		return this.value / 1000;}
-           	}
-           	},
-           tooltip: {shared: true,valueSuffix: 'millions'},
-           plotOptions: {
-           area: {
-           	stacking: 'normal',
-           	lineColor: '#666666',
-           	lineWidth: 1,
-           	marker: {
-           		lineWidth: 1,
-           		lineColor: '#666666'
-           		}
-           	 }
-           },
-           series: JSON.parse(Series)
-           };
-           var optionsBar={
-		   chart: {type: 'area'},
-           title: {text: 'Worldwide Population Growth'},
-           subtitle: {text: 'Source: Ashoka.org'},
-           xAxis: {
-           categories:JSON.parse(Category),
-           tickmarkPlacement: 'on',
-           title: {enabled: false}},
-           yAxis: {title: {text: 'Billions'},
-           labels: {
-           	formatter: function() {
-           		//console.log(this.value);
-           		return this.value / 1000;}
-           	}
-           	},
-           tooltip: {shared: true,valueSuffix: 'millions'},
-           plotOptions: {
-           series: {
-                    stacking: 'normal'
-                }
-           },
-           series: JSON.parse(Series)
-           };
-        //HighCharts
-		function createChart() {
-			//console.log("options.series" + options.series);
-			//console.log("series" + Series);
-			 jQuery('#TestiChart1').highcharts(options);
-			 jQuery('#TestiChart2').highcharts(optionsBar);
-	 };
-			createChart();
-});	
-};
+    $scope.datasets = dataSetData.query();
 
-function dataPageController($scope, $http, $modal, dataSetData1, $location, getSectors,getCountries, getYears,getSurveyData) {
-    //surveyData=parseSurveyData(getSurveyData);
-	
-	dataSetData1.query(function(data){
-	$scope.datasets = data;
-	//console.log("the country descriptive data : "+JSON.stringify($scope.datasets));
-	
-	//now getting sectors, courntries and years
-	var sectorArr=[],yearArr=[],countryArr=[];
-	var Sectors='[';
-	var Countries='[';
-	var Years='[';
-	
-	getSectors.query(function(sectorData){
-	for(rowIndex in sectorData)
-	{ 		 if(!isPresent(sectorData[rowIndex].sector_name,sectorArr)){
-				sectorArr.push(sectorData[rowIndex].sector_name);	
-				//Category=Category+JSON.stringify(sectorData[rowIndex].sector_name)+",";	
-				Sectors=Sectors+'{"name": '+JSON.stringify(sectorData[rowIndex].sector_name)+', "code": "01", "selectcode": true},';
-			}
-    }
-		Sectors=Sectors.substring(0,Sectors.length-1);
-		Sectors=Sectors+']';
-		//console.log("sectorArr : "+Sectors);
-	    $scope.Sectors1 =JSON.parse(Sectors);
-		
-		getCountries.query(function(countryData){
-		for(rowIndex in countryData)
-		{ 		 if(!isPresent(countryData[rowIndex].country,countryArr)){
-					countryArr.push(countryData[rowIndex].country);	
-					//Category=Category+JSON.stringify(sectorData[rowIndex].sector_name)+",";	
-					Countries=Countries+'{"name": '+JSON.stringify(countryData[rowIndex].country)+', "code": "02", "selectcode": true},';
-				}
-		}
-		Countries=Countries.substring(0,Countries.length-1);
-		Countries=Countries+']';
-		//console.log("sectorArr : "+Sectors);
-	    $scope.Countries1 =JSON.parse(Countries);
-		getYears.query(function(yearsList){
-		for(rowIndex in yearsList)
-		{ 		 if(!isPresent(yearsList[rowIndex].Year,yearArr)){
-					yearArr.push(yearsList[rowIndex].Year);	
-					//Category=Category+JSON.stringify(sectorData[rowIndex].sector_name)+",";	
-					Years=Years+'{"name": '+JSON.stringify(yearsList[rowIndex].Year)+', "code": "03", "selectcode": true},';
-				}
-		}
-			Years=Years.substring(0,Years.length-1);
-			Years=Years+']';
-			//console.log("sectorArr : "+Sectors);
-			$scope.Years1 =JSON.parse(Years);
-	
-	
-	
-	
-	
-	
-	
-    //Accordion Starts
-
-    $scope.displayData = function (idd) {
-        for (i in $scope.datasets) {
-            if ($scope.datasets[i].id == idd) {
-                $scope.contentHeader = $scope.datasets[i].name;
-                $scope.contentDetails = $scope.datasets[i].snippet;
-                $scope.countrry = $scope.datasets[i].cntry;
-                $scope.yyear = $scope.datasets[i].dateyear;
-            }
-        }
-        $scope.acc1open = true;
-        $scope.acc2open = true;
-        $scope.acc3open = false;
-    };
-
-	//Drags
-
-    $scope.topDragList = [{
-        'title': 'Sector(' + $scope.sector_count + ')',
-        'drag': true,
-        'val': '12'
-    }];
-
-    $scope.leftDragList = [{
-        'title': 'Country(' + $scope.contry_count + ')',
-        'drag': true,
-        'val': '11'
-    }, {
-        'title': 'Year(' + $scope.yyrss_count + ')',
-        'drag': true,
-        'val': '10'
-    }];
-
-		//console.log("just before the dragdataActions method");
-		//console.log("sectores1 "+ $scope.Sectors1);
-		//console.log("countries "+ $scope.Countries1);
-		//console.log("Years1 "+ $scope.Years1);
-		
-		$scope.dragdataActions = function () {
-
-		console.log("called it");
-        valflag = 0;
-        lftSideListArr = [];
-        $scope.selectedContr = [];
-        $scope.selectedSects = [];
-        $scope.selectedYyrs = [];
-		//console.log("just before the angular.forEach methods");
-		//console.log("sectores1 "+ $scope.Sectors1);
-		//console.log("countries "+ $scope.Countries1);
-		//console.log("Years1 "+ $scope.Years1);
-        
-		angular.forEach($scope.Sectors1, function (sec) {
-
-            if (angular.isDefined(sec.selectcode) && sec.selectcode === true) {
-
-                $scope.selectedSects.push(sec.name);
-
-            }
-
-        });
-
-		//console.log("$scope.selectedSects : "+$scope.selectedSects);
-        angular.forEach($scope.Countries1, function (cont) {
-
-            if (angular.isDefined(cont.selectcode) && cont.selectcode === true) {
-
-                $scope.selectedContr.push(cont.name);
-
-            }
-
-        });
-		//console.log("$scope.selectedContr : "+$scope.selectedContr);
-        angular.forEach($scope.Years1, function (yyrs) {
-
-            if (angular.isDefined(yyrs.selectcode) && yyrs.selectcode === true) {
-
-                $scope.selectedYyrs.push(yyrs.name);
-
-            }
-
-        });
-		//console.log("$scope.selectedYyrs : "+$scope.selectedYyrs);
-
-        for (i = 0; i < $scope.topDragList.length; i++) {
-            lftSideListArr = $scope.topDragList[i].val;
-            valflag += parseInt(lftSideListArr);
-        }
-
-        $scope.sector_count = $scope.selectedSects.length;
-        $scope.contry_count = $scope.selectedContr.length;
-        $scope.yyrss_count = $scope.selectedYyrs.length;
-
-		//console.log("$scope.selectedSects : "+$scope.selectedSects);
-		//console.log("$scope.selectedContr : "+$scope.selectedContr);
-		//console.log("$scope.selectedYyrs : "+$scope.selectedYyrs);
-		
-		
-		
-		getSurveyData.query(function(data){
-		var s=[];
-		surveyJSON=data;
-		//console.log(JSON.stringify(surveyJSON)+"---"+data.length)
-		for(k=0;k<data.length;k++){
-		s.push(data[k].value);
-		}
-
-		console.log("survey data is :"+ s);
-		//console.log("$scope.surveyData : "+data);
-		
-		
-		
-		 $(".tbleStru").createGTable({
-            SectorsArr: $scope.selectedSects,
-            CountriesArr: $scope.selectedContr,
-            YearsArr: $scope.selectedYyrs,
-			datavalueArr: s,
-            initPos: valflag
-        });
-		});		
-       
-
-
-
-
-
-	  
-
-    };
-	
-	
-	$scope.dragdataActions();
-
-	});// END OF getYears
-	});//end of getCountries
-	});//end of getsectors
-	});
-	
- // Pagination
+    // Pagination
 
     $scope.pageSize = 3;
     var intialPageSize = 3;
@@ -461,14 +34,185 @@ function dataPageController($scope, $http, $modal, dataSetData1, $location, getS
     };
 
     // Pagination Ends
-	
-	
-	
-	
-	
-    $scope.optionsList1 = {
+
+    //Accordion Starts
+
+    $scope.displayData = function (idd) {
+        for (i in $scope.datasets) {
+            if ($scope.datasets[i].id == idd) {
+                $scope.contentHeader = $scope.datasets[i].name;
+                $scope.contentDetails = $scope.datasets[i].snippet;
+                $scope.countrry = $scope.datasets[i].cntry;
+                $scope.yyear = $scope.datasets[i].dateyear;
+            }
+        }
+        $scope.acc1open = true;
+        $scope.acc2open = true;
+        $scope.acc3open = false;
+    };
+
+    /*Some jsons for temp use*/
+    $scope.Sectors1 = [{
+        "name": "Agriculture",
+        "code": "01",
+        "selectcode": true
+    }, {
+        "name": "Education",
+        "code": "01",
+        "selectcode": true
+    }, {
+        "name": "Social",
+        "code": "01",
+        "selectcode": false
+    }, {
+        "name": "HealthCare",
+        "code": "01",
+        "selectcode": false
+    }];
+
+    $scope.Countries1 = [{
+        "name": "India",
+        "code": "02",
+        "selectcode": true
+    }, {
+        "name": "England",
+        "code": "02",
+        "selectcode": true
+    }, {
+        "name": "Canada",
+        "code": "02",
+        "selectcode": ""
+    }, {
+        "name": "France",
+        "code": "02",
+        "selectcode": ""
+    }, {
+        "name": "South Africa",
+        "code": "02",
+        "selectcode": ""
+    }, {
+        "name": "China",
+        "code": "02",
+        "selectcode": ""
+    }, {
+        "name": "Japan",
+        "code": "02",
+        "selectcode": ""
+    }];
+
+    $scope.Years1 = [{
+        "name": "2010",
+        "code": "03",
+        "selectcode": ""
+    }, {
+        "name": "2011",
+        "code": "03",
+        "selectcode": true
+    }, {
+        "name": "2012",
+        "code": "03",
+        "selectcode": true
+    }, {
+        "name": "2013",
+        "code": "03",
+        "selectcode": ""
+    }, {
+        "name": "2008",
+        "code": "03",
+        "selectcode": ""
+    }, {
+        "name": "2009",
+        "code": "03",
+        "selectcode": ""
+    }, {
+        "name": "2000",
+        "code": "03",
+        "selectcode": ""
+    }];
+
+    //Drags
+
+    $scope.topDragList = [{
+        'title': 'Sector',
+        'drag': true,
+        'val': '12'
+    }];
+
+    $scope.leftDragList = [{
+        'title': 'Country',
+        'drag': true,
+        'val': '11'
+    }, {
+        'title': 'Year',
+        'drag': true,
+        'val': '10'
+    }];
+
+    $scope.dragdataActions = function () {
+
+        valflag = 0;
+        lftSideListArr = [];
+        $scope.selectedContr = [];
+        $scope.selectedSects = [];
+        $scope.selectedYyrs = [];
+        angular.forEach($scope.Sectors1, function (sec) {
+
+            if (angular.isDefined(sec.selectcode) && sec.selectcode === true) {
+
+                $scope.selectedSects.push(sec.name);
+
+            }
+
+        });
+
+        angular.forEach($scope.Countries1, function (cont) {
+
+            if (angular.isDefined(cont.selectcode) && cont.selectcode === true) {
+
+                $scope.selectedContr.push(cont.name);
+
+            }
+
+        });
+
+        angular.forEach($scope.Years1, function (yyrs) {
+
+            if (angular.isDefined(yyrs.selectcode) && yyrs.selectcode === true) {
+
+                $scope.selectedYyrs.push(yyrs.name);
+
+            }
+
+        });
+
+
+        for (i = 0; i < $scope.topDragList.length; i++) {
+            lftSideListArr = $scope.topDragList[i].val;
+            valflag += parseInt(lftSideListArr);
+        }
+
+        $scope.sector_count = $scope.selectedSects.length;
+        $scope.contry_count = $scope.selectedContr.length;
+        $scope.yyrss_count = $scope.selectedYyrs.length;
+        
+
+        $(".tbleStru").createGTable({
+            SectorsArr: $scope.selectedSects,
+            CountriesArr: $scope.selectedContr,
+            YearsArr: $scope.selectedYyrs,
+            initPos: valflag
+        });
+        
+        
+        
+		rearrangeData();
+		$("#sideDiv .thumbnail .btn").dblclick();
+
+    };
+
+	$scope.optionsList1 = {
         accept: function (dragEl) {
-            return true;
+       	   return true;
         }
     };
 
@@ -480,7 +224,7 @@ function dataPageController($scope, $http, $modal, dataSetData1, $location, getS
             templateUrl: 'partials/completeData.html',
             controller: function () {
                 openPops = setTimeout(function () {
-                    $("#tbleBase").clone().appendTo($("#appndTable"));
+                    $("#tbleStru1").clone().appendTo($("#appndTable"));
                     $(".modal").addClass("adjusModal");
                     chartOpens('', 1);
                 }, 10)
@@ -488,122 +232,108 @@ function dataPageController($scope, $http, $modal, dataSetData1, $location, getS
             }
         })
     };
-	$scope.acc2open = true;
-	$scope.$on('$viewContentLoaded', addControls());
+
+
+    $scope.acc2open = true;
+
+    $scope.$on('$viewContentLoaded', addControls());
+    
     $scope.activePath = null;
-  	$scope.$on('$routeChangeSuccess', function(){
-    $scope.$parent.activePath ="#"+ $location.path();
-  	});
-	
-};
-
-function parseSurveyData(getSurveyData) {
-var surveyJSON;
-var s = [];
-getSurveyData.query(function(data){
-surveyJSON=data;
-//console.log(JSON.stringify(surveyJSON)+"---"+data.length)
-for(k=0;k<data.length;k++){
-s.push(data[k].value);
-}
-
-console.log("survey data is :"+ s);
-});
-return surveyJSON;
-}
-
-function infinitiPageController($scope, $http, $modal, dataSetData1, $location) {
-    $scope.activePath = null;
+  	
   	$scope.$on('$routeChangeSuccess', function(){
     	$scope.$parent.activePath ="#"+ $location.path();
   	});
-}
-
-function ChartCtrl($scope, $location, $routeParams, Project) {
-Project.get({id: $routeParams.countryId},function(data){
-var xdata=data;
-if(xdata.length > 0) {
-var xcategories=[];
-var ycategories = [];
-var ucheck;
-var scheck;
-var sectors=[];
-var temp1=[];
-var temp2=[];
-for(var i = 0; i < xdata.length; i++) {
-if (xdata[i].year != ucheck ) {
-xcategories.push(xdata[i].year);
-}
-ucheck = xdata[i].year;
-temp1.push(xdata[i].sector_name);
-temp1.sort();
-if (temp1[i] != scheck ) {
-sectors.push(temp1[i]);
-}
-scheck = temp1[i];
-}
-var j=0;
-while ( j < sectors.length)
-{
-for(var i = 0; i < xdata.length; i++) {
- 
- if ( sectors[j]==xdata[i].sector_name) {
-   temp2.push(parseInt(xdata[i].value));
-}
-}
-ycategories.push({name: sectors[j], data: temp2});
-temp2=[];
-j++;
-}
-var hdata = {
-            title: {
-                text: 'Ashoka Stats',
-                x: -20 //center
-            },
-            subtitle: {
-                text: 'Source: www.ashoka.org',
-                x: -20
-            },
-            xAxis: {
-                categories: xcategories
-            },
-            yAxis: {
-                title: {
-                    text: 'Penitration (Millions)'
-                },
-                plotLines: [{
-                    value: 0,
-                    width: 1,
-                    color: '#808080'
-                }]
-            },
-            tooltip: {
-                valueSuffix: ' Millions'
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle',
-                borderWidth: 0
-            },
-            series: ycategories
-        };
-
-$scope.basicAreaChart = hdata;
-}
-else {
-var hdata = {
-title: {
-                text: 'No data to dispaly',
-                x: -20 
-       }
 };
-$scope.basicAreaChart = hdata;
+
+
+function addControls() {
+	
+	var t=0; // the height of the highest element (after the function runs)
+	var t_elem;  // the highest element (after the function runs)
+	$(".mainContent .clumContnt").each(function () {
+	    $this = $(this);
+	    if ( $this.innerHeight() > t ) {
+	        t_elem=this;
+	        t=$this.innerHeight();
+	    }
+	});
+	
+   	 var hghtAdju = setTimeout(function () {
+   	 	
+   	 	if ($(document).width() > 640) {
+        $(".mainContent .clumContnt").innerHeight(t);
+        }else{
+        $("#rightColum").insertAfter(".mainContent");
+        }
+       
+        $(".tbleStru").createGTable({
+            initPos: 12
+        });
+        $(".datasetList").children("li:first").find(".dataDetails").click();
+        $(".bysctor").css({
+            "margin-top": "20px",
+            "display": "none"
+        });
+   	 }, 500);
+
+
+    $("#closepop").live("click", function () {
+        $(".modal-backdrop").trigger("click");
+        $("html").css("overflow", "auto");
+    });
+
+
+    $(".sectorMenu a").live("click", function () {
+        $iid = $(this).attr("id");
+        $nxtiid = $(this).siblings("a").attr("id");
+        $(".selecType").fadeOut("fast");
+        $('#TC1').children("div").remove();
+        $('.' + $nxtiid).fadeOut("fast");
+        $('.' + $iid).fadeIn("slow");
+    });
+
+    $(".mapChoosefnt li input").live("click", function () {
+        var typeChart = $(this).val();
+        chartOpens(typeChart, 0);
+    });
+
+
+    $(".listCountry a, .bysctor a").live("click", function () {
+        $(this).parents().eq(2).fadeOut();
+        $(".selecType").fadeIn();
+        chartOpens();
+    });
+
+    $(".browseTab").live("click", function () {
+        $(".selecType").fadeOut("fast");
+    });
+    
+    if($(".mainContentLogos").length){
+    chartOpens("", 0, '350');
+    chartOpens("area", 1, '300');
+    }else{
+    chartOpens("spline", 0, '350');
+    chartOpens("column", 1, '300');
+    }
+    
+    rearrangeData();
+    slideStarts();
+    
 }
-});
+
+function rearrangeData(){
+    	if($.browser.msie){
+    	setTimeout(function(){
+    	$("#sideDiv .btn:eq(0)").css("top", "10px");
+    	$("#sideDiv .btn:eq(1)").css("top", "45px");
+        $("#sideDiv .btn:eq(2)").css("top", "85px");  
+        }, 100)
+       }
+    	
 }
 
 function slideStarts(){
+	
 	$("#slides").slidesjs({
 			  height: 300,
 	          play: {
@@ -617,95 +347,30 @@ function slideStarts(){
 		      active: false
 		      }
 	  });
+	
 }
 
-function isPresent(obj, Arr) {
-	for(i in Arr)
-	{
-		if (obj==Arr[i])
-		return true;
-	}
-	return false;
-};
-
-function addControls() {
-	var t=0; // the height of the highest element (after the function runs)
-	var t_elem;  // the highest element (after the function runs)
-	$(".mainContent .clumContnt").each(function () {
-	    $this = $(this);
-	    if ( $this.innerHeight() > t ) {
-	        t_elem=this;
-	        t=$this.innerHeight();
-	    }
-	});
-	 var hghtAdju = setTimeout(function () {
-        $(".mainContent .clumContnt").innerHeight(t);
-        
-        $(".tbleStru").createGTable({
-            initPos: 12
-        });
-        $(".datasetList").children("li:first").find(".dataDetails").click();
-        $(".bysctor").css({
-            "margin-top": "20px",
-            "display": "none"
-        });
-   	 }, 500);
-    $("#closepop").live("click", function () {
-        $(".modal-backdrop").trigger("click");
-        $("html").css("overflow", "auto");
-    });
-    $(".sectorMenu a").live("click", function () {
-        $iid = $(this).attr("id");
-        $nxtiid = $(this).siblings("a").attr("id");
-        $(".selecType").fadeOut("fast");
-        $('#TC1').children("div").remove();
-        $('.' + $nxtiid).fadeOut("fast");
-        $('.' + $iid).fadeIn("slow");
-    });
-    $(".mapChoosefnt li input").live("click", function () {
-        var typeChart = $(this).val();
-        chartOpens(typeChart, 0);
-    });
-    $(".listCountry a, .bysctor a").live("click", function () {
-        $(this).parents().eq(2).fadeOut();
-        $(".selecType").fadeIn();
-        chartOpens();
-    });
-    $(".browseTab").live("click", function () {
-        $(".selecType").fadeOut("fast");
-    });
-    if($(".mainContentLogos").length){
-    chartOpens();
-    chartOpens("area", 1);
-    }else{
-    chartOpens("spline", 0);
-    chartOpens("column", 1);    	
-    }
-    rearrangeData();
-	slideStarts();
+function chartOpens(typeval, mode, setHeight) {
     
-}
+    if (mode == 1) {
+        $initId = $('.TC1');
+    } else {
+        $initId = $('#TC1');
+    }
 
-function rearrangeData(){
-    	setTimeout(function(){
-        if($("#sideDiv .thumbnail .btn").length == 2){
-        $(".btn:first-child").animate({"transform-origin": "30px 17px 0"})
-		$(".btn:last-child").animate({"transform-origin": "45px 32px 0"})
-		}else if($("#sideDiv .thumbnail .btn").length == "3"){
-		$(".btn:eq(1)").animate({"transform-origin": "45px 32px 0"})
-		$(".btn:last-child").animate({"transform-origin": "63px 50px 0"})
-		}else{
-		$(".btn:first-child").animate({"transform-origin": "30px 17px 0"})	
-		}
-        }, 100)
-}
+    if (!typeval) {
+        var typeChart = 'bar';
+    } else {
+        var typeChart = typeval;
+    }
 
-function chartOpens(){
-	//for chart purpose - temp approach
-			if($('#TC1').length){
-	        $('#TC1').highcharts({
+    //for chart purpose - temp approach
+
+    if ($initId.length) {
+        $initId.highcharts({
             chart: {
-                type: 'line'
+                type: typeChart,
+				height: setHeight
             },
             title: {
                 text: 'Yearly Countries Stats'
@@ -720,9 +385,9 @@ function chartOpens(){
             },
             tooltip: {
                 enabled: true,
-                formatter: function() {
-                    return '<b>'+ this.series.name +'</b><br/>'+
-                        this.x +': '+ this.y;
+                formatter: function () {
+                    return '<b>' + this.series.name + '</b><br/>' +
+                        this.x + ': ' + this.y;
                 }
             },
             plotOptions: {
@@ -744,13 +409,269 @@ function chartOpens(){
                 data: [13, 24, 25, 38, 6, 11, 7]
             }]
         });
-		}
+
+    }
+
 }
 
-window.onload = function(){ setTimeout( function(){ isIphone(); }, 1000); };
+function dataPageController($scope, $http, $modal, dataSetData, $location, getSurveyData, getSurveyDataDrag) {
+	 $scope.datasets = dataSetData.query();
+	 
+	 // DataSet 'I'
+	 // Pagination
 
-function isIphone(){
-	if($(document).width()<481){
-     $("#rightColum").insertAfter( ".mainContent" );
-    }
+    $scope.pageSize = 3;
+    var intialPageSize = 3;
+    $scope.shLess = false;
+    $scope.shMore = true;
+
+
+    $scope.nxtPage = function (num) {
+        var EndPageSize = $scope.datasets.length - num;
+        if (($scope.pageSize - intialPageSize) == intialPageSize) {
+            $scope.shMore = false;
+        }
+
+        if (EndPageSize > 0) {
+            $scope.pageSize = num + 3;
+            $scope.shLess = true;
+        }
+
+    };
+
+    $scope.prevPage = function (num) {
+        if (($scope.pageSize - intialPageSize) == intialPageSize) {
+            $scope.shLess = false;
+        }
+        if (num != intialPageSize) {
+            $scope.pageSize = num - 3;
+            $scope.shMore = true;
+        }
+    };
+
+    // Pagination Ends
+
+    //Accordion Starts
+
+    $scope.displayData = function (idd) {
+        for (i in $scope.datasets) {
+            if ($scope.datasets[i].id == idd) {
+                $scope.contentHeader = $scope.datasets[i].name;
+                $scope.contentDetails = $scope.datasets[i].snippet;
+                $scope.countrry = $scope.datasets[i].cntry;
+                $scope.yyear = $scope.datasets[i].dateyear;
+            }
+        }
+        $scope.acc1open = true;
+        $scope.acc2open = true;
+        $scope.acc3open = false;
+    };
+    
+    
+    // DataSet 'II'
+    
+    	var valueArra=[];
+		var cntryeArra=[];
+		var sectorArra=[];
+		var jusCheckS = [];
+		var jusCheckY = [];
+		var jusCheckC = [];
+		var timestaArra = [];
+		
+		
+			 //Drags
+
+    $scope.topDragList = [{
+        'title': 'Sector',
+        'drag': true,
+        'val': '12'
+    }];
+
+    $scope.leftDragList = [{
+        'title': 'Country',
+        'drag': true,
+        'val': '11'
+    }, {
+        'title': 'Year',
+        'drag': true,
+        'val': '10'
+    }];
+    
+	
+   	getSurveyData.query(function(data){
+		
+		for(k=0;k<data.length;k++){
+		data[k].sectorCode =true;
+		data[k].countryCode =true;
+		data[k].YearCode =true;
+		if (jusCheckY.indexOf(data[k].year) == -1){
+		jusCheckY.push(data[k].year);
+		TimesArr={"name": data[k].year, "code": "03", "selectcode": true}
+		timestaArra.push(TimesArr);	
+		}
+		if (jusCheckC.indexOf(data[k].country) == -1){
+		jusCheckC.push(data[k].country);
+		Countryi={"name": data[k].country, "code": "02", "selectcode": true}
+		cntryeArra.push(Countryi);
+		}
+		if (jusCheckS.indexOf(data[k].sector) == -1){
+		jusCheckS.push(data[k].sector);	
+		//sectorArra.push(data[k].sector);
+		Sectors={"name": data[k].sector, "code": "01", "selectcode": true}
+		sectorArra.push(Sectors);
+		}
+		valueArra.push(data[k].value);
+		}
+
+	 $scope.Sectors1	= 	sectorArra;
+	 $scope.Years1		=	timestaArra;
+	 $scope.Countries1	= 	cntryeArra;
+	 
+
+    
+
+	 $scope.dragdataActions = function () {
+	 	
+
+	 	
+	 	valflag = 0;
+        lftSideListArr = [];
+        $scope.selectedContr = [];
+        $scope.selectedSects = [];
+        $scope.selectedYyrs = [];
+        
+        for (i = 0; i < $scope.topDragList.length; i++) {
+            lftSideListArr = $scope.topDragList[i].val;
+            valflag += parseInt(lftSideListArr);
+        }
+		console.log(valflag);
+		
+		getSurveyDataDrag.query({changeOrderBy: valflag},function(data){
+		
+			for(k=0;k<data.length;k++){
+			data[k].sectorCode =true;
+			data[k].countryCode =true;
+			data[k].YearCode =true;
+			}
+			
+		})
+        
+        angular.forEach($scope.Sectors1, function (sec) {
+
+            if (angular.isDefined(sec.selectcode) && sec.selectcode === true) {
+
+                $scope.selectedSects.push(sec.name);
+                $.each(data, function(j, v) {
+			        if (data[j].sector == sec.name) {
+
+			            delete data[j].sectorCode;
+			            data[j].sectorCode = "true";
+			            return;
+			        }
+			    });
+              
+
+            }else{
+            	 $.each(data, function(i, v) {
+			        if (data[i].sector == sec.name) {
+			            delete data[i].sectorCode;
+			            data[i].sectorCode = "false";
+			            return;
+			        }
+			    });
+            }
+        });
+
+        angular.forEach($scope.Countries1, function (cont) {
+
+            if (angular.isDefined(cont.selectcode) && cont.selectcode === true) {
+
+                $scope.selectedContr.push(cont.name);
+                
+                $.each(data, function(j, v) {
+			        if (data[j].country == cont.name) {
+
+			            delete data[j].countryCode;
+			            data[j].countryCode = "true";
+			            return;
+			        }
+			    });
+
+            }else{
+            	
+            	$.each(data, function(i, v) {
+			        if (data[i].country == cont.name) {
+			            delete data[i].countryCode;
+			            data[i].countryCode = "false";
+			            return;
+			        }
+			    });
+            	
+            }
+
+        });
+
+        angular.forEach($scope.Years1, function (yyrs) {
+
+            if (angular.isDefined(yyrs.selectcode) && yyrs.selectcode === true) {
+
+                $scope.selectedYyrs.push(yyrs.name);
+                
+                $.each(data, function(j, v) {
+			        if (data[j].year == yyrs.name) {
+			            delete data[j].YearCode;
+			            data[j].YearCode = "true";
+			            return;
+			        }
+			    });
+
+            }else{
+            	
+            	$.each(data, function(i, v) {
+			        if (data[i].year == yyrs.name) {
+			            delete data[i].YearCode;
+			            data[i].YearCode = "false";
+			            return;
+			        }
+			    });
+			    
+            }
+
+        });
+       /* valueArra = [];
+        $.each(data, function(kk, v) {
+			if(data[kk].sectorCode!="false"){
+				console.log(data[kk].sector)
+				valueArra.push(data[kk].value);
+			}
+		})
+		valueArra = [];
+		for(v=0;v<data.length;v++){
+			if(data[v].YearCode!="false"){
+				valueArra.push(data[v].value);
+			}else if(data[v].sectorCode!="false"){
+				
+			}else if(data[v].countryCode!="false"){
+				
+			}
+		}
+        
+         console.log(valueArra)
+        */
+        
+
+		  $(".tbleStru").createGTable({
+	            SectorsArr: $scope.selectedSects,
+	            CountriesArr: $scope.selectedContr,
+	            YearsArr: $scope.selectedYyrs,
+	            datavalueArr: data,
+	            initPos: valflag
+	      });
+
+	 }
+
+        
+	 
+	 })
+    
 }

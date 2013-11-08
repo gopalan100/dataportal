@@ -34,8 +34,16 @@
 	 	Sectors = settings.SectorsArr;
  		Countries = settings.CountriesArr;
  		Years = settings.YearsArr;
- 		dataValues = settings.datavalueArr;
- 		
+ 		dataValues1 = settings.datavalueArr;
+		dataValues = [];
+
+		$.each(dataValues1, function(i, v) {
+			if(dataValues1[i].sectorCode=="true" && dataValues1[i].YearCode=="true" && dataValues1[i].countryCode=="true"){
+				console.log(dataValues1[i].country+"---"+dataValues1[i].sector+"---"+dataValues1[i].year+"---"+dataValues1[i].value+"---"+dataValues1[i].sectorCode+"---"+dataValues1[i].YearCode+"---"+dataValues1[i].countryCode)
+				dataValues.push(dataValues1[i].value);			
+			}
+		});
+		
  		var g = 0;
 		var g1 = 0;
 		var g2 = 0;
@@ -51,17 +59,17 @@
 				
 				colNumss = cntrNos*agriNos+1;
 				rowNumss = yrsNos+2;
-				if(cntrNos<agriNos){
+				//if(cntrNos<agriNos){
 				spanValue1 = agriNos;
 				divValue = 	cntrNos;
 				vall1 = Countries;
 				vall2 = Sectors;
-				}else{
+				/*}else{
 				spanValue1 = cntrNos;
 				divValue = 	agriNos;
 				vall1 = Sectors;
 				vall2 = Countries;
-				}
+				}*/
 				vall = Years;
 				showGTable();
 				break;
